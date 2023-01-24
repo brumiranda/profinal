@@ -28,7 +28,7 @@
 			<tbody>
 				<tr  th:each="l : ${lanchonetes}">
 					<td th:text="${l.id}">1</td>
-					<td th:text="${l.produto}">Tapioca</td>
+					<td> <a th:href="@{/lanchonetes/{id}(id=${l.id})}"> <span th:text="${l.produto}">Tapioca</span></a></td>
 					<td th:text="${l.preco}">7.00</td>
 					<td th:text="${l.quantidade}">5</td>
 					<td th:text="${l.data}">25/01/23</td>
