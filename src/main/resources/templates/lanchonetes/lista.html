@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Lanchonetes</title>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+	<div th:replace="~{menu :: menu}"></div>
+
+	<div class="container">
+		<h1>Lista de Produtos</h1>
+
+		<table>
+
+			<thead>
+				<tr>
+					<th>Id:</th>
+					<th>Produto:</th>
+					<th>Preço:</th>
+					<th>Quantidade:</th>
+					<th>Data:</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr  th:each="l : ${lanchonetes}">
+					<td th:text="${l.id}">1</td>
+					<td th:text="${l.produto}">Tapioca</td>
+					<td th:text="${l.preco}">7.00</td>
+					<td th:text="${l.quantidade}">5</td>
+					<td th:text="${l.data}">25/01/23</td>
+					
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+</body>
+
+</html>
