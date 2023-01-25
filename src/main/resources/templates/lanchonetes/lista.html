@@ -6,6 +6,8 @@
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
 </head>
 <body>
 	<div th:replace="~{menu :: menu}"></div>
@@ -22,6 +24,7 @@
 					<th>Preço:</th>
 					<th>Quantidade:</th>
 					<th>Data:</th>
+					<th>Excluir</th>
 				</tr>
 			</thead>
 
@@ -32,6 +35,7 @@
 					<td th:text="${l.preco}">7.00</td>
 					<td th:text="${l.quantidade}">5</td>
 					<td th:text="${l.data}">25/01/23</td>
+					<td> <a th:href="@{/lanchonetes/{id}/remover(id=${l.id})}"> <i class="material-icons">delete</i></a></td>
 					
 				</tr>
 			</tbody>
