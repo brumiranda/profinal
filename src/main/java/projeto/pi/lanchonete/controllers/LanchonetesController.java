@@ -84,4 +84,25 @@ public class LanchonetesController {
 		
 		return "redirect:/lanchonetes/{idProduto}";
 	}
+	
+	@GetMapping("/{id}/remover")
+	public String apagarProduto(@PathVariable Long id) {
+		
+		Optional<Lanchonete> opt = lr.findById(id);
+		if(!opt.isEmpty()) {
+			
+			Lanchonete lanchonete = opt.get();
+			
+			List<Produto> produtos = pr.findByLanchonete(lanchonete);
+			pr.deleteAll(produtos);
+			
+			lr.delete(lanchonete);
+		}
+		
+		return "redirect:/lanchonetes";
+		
+		
+	}
+	
+	
 }
