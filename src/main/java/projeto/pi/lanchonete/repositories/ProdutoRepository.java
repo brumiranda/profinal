@@ -12,5 +12,5 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	
 	List<Produto> findByLanchonete(Lanchonete lanchonete);
 	
-	
+	Produto findByDescricao (String descricao);
 }

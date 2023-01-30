@@ -6,6 +6,7 @@
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 	<div th:replace="~{menu :: menu}"></div>
@@ -34,19 +35,30 @@
         <div class="card-content white-text">
           <span class="card-title">Atualizar produto</span>
          
-         <form action="" method="post">
+         <form th:action="@{/lanchonetes/{idLanchonete}(idLanchonete=${lanchonete.id})}" method="post">
+         	
          	<div>
-         		<label>Descrição: </label> <input type="text" name="descricao">
+         		
+         	<input type="hidden" name="id" th:value="${produto.id}" readonly="readonly">
+         	
          	</div>
+         	
          	<div>
-         		<label>Preço: </label> <input type="text" name="preco">
+         		<label> Descrição: </label> <input type="text" name="descricao" th:value="${produto.descricao}">
          	</div>
+         	
          	<div>
-         		<label>Quantidade: </label> <input type="text" name="quantidade">
+         		<label> Preço: </label> <input type="text" name="preco" th:value="${produto.preco}"> 
          	</div>
+         	
          	<div>
-         		<label>Data: </label> <input type="text" name="data">
+         		<label> Quantidade: </label> <input type="text" name="quantidade" th:value="${produto.quantidade}">
          	</div>
+         	
+         	<div>
+         		<label> Data: </label> <input type="text" name="data" th:value="${produto.data}">
+         	</div>
+         	
          	<div>
          		<button type="submit" class="btn">Salvar</button>
          		<button type="reset" class="btn">Limpar</button>
@@ -72,11 +84,13 @@
          		<th>Preço</th>
          		<th>Quantidade</th>
          		<th>Data</th>
+         		<th>Editar</th>
+         		<th>Excluir</th>
          			</tr>
          		
          		
          	
-         		
+         	
          		</thead>
          		
          		<tbody>
@@ -86,6 +100,10 @@
          				<td th:text="${p.preco}">10.00</td>
          				<td th:text="${p.quantidade}">16</td>
          				<td th:text="${p.data}">18/02/23</td>
+         				
+         				<td> <a th:href="@{/lanchonetes/{idLanchonete}/produtos/{idProduto}/selecionar(idLanchonete=${lanchonete.id}, idProduto=${p.id})}"> <i class="material-icons">edit</i></a> </td>
+         				
+         				<td> <a th:href="@{/produtos/{id}/deletarProduto(id=${p.id})}"> <i class="material-icons">delete</i></a> </td>
          			</tr>
          		
          		</tbody>

@@ -14,18 +14,22 @@
 	<h1>Adicionar Produto</h1>
 
 	<form action="/lanchonetes" method="post">
+	
+		<div>
+			<input type="hidden" name="id" th:value="${lanchonete.id}" readonly="readonly">
+		</div>
 
 		<div>
-			<label>Produto:</label> <input type="text" name="produto">
+			<label>Produto:</label> <input type="text" name="produto" th:value="${lanchonete.produto}">
 		</div>
 		<div>
-			<label>Preço:</label> <input type="text" name="preco">
+			<label>Preço:</label> <input type="text" name="preco" th:value="${lanchonete.preco}">
 		</div>
 		<div>
-			<label>Quantidade:</label> <input type="text" name="quantidade">
+			<label>Quantidade:</label> <input type="text" name="quantidade" th:value="${lanchonete.quantidade}">
 		</div>
 		<div>
-			<label>Data:</label> <input type="text" name="data">
+			<label>Data:</label> <input type="text" name="data" th:value="${lanchonete.data}">
 		</div>
 
 

@@ -27,16 +27,17 @@ public class LanchonetesController {
 	
 	
 	@GetMapping("/form")
-	public String form() {
+	public String form(Lanchonete lanchonete) {
 		return "lanchonetes/formLanchonete";
 	}
 
 	@PostMapping
-	public String adicionar(Lanchonete lanchonete) {
+	public String salvar(Lanchonete lanchonete) {
 
 		System.out.println(lanchonete);
 		lr.save(lanchonete);
-		return "lanchonetes/produto-adicionado";
+		
+		return "redirect:/lanchonetes";
 	}
 
 	@GetMapping
@@ -49,7 +50,7 @@ public class LanchonetesController {
 		
 	}
 	@GetMapping("/{id}")
-	public ModelAndView detalhar (@PathVariable Long id) {
+	public ModelAndView detalhar (@PathVariable Long id, Produto produto) {
 		ModelAndView md = new ModelAndView();
 		Optional<Lanchonete> opt = lr.findById(id);
 		if(opt.isEmpty()) {
@@ -67,12 +68,12 @@ public class LanchonetesController {
 		return md;
 	}
 	
-	@PostMapping("/{idProduto}")
-	public String salvarAtualizacao(@PathVariable Long idProduto, Produto produto) {
-		System.out.println("Id do produto: " + idProduto);
+	@PostMapping("/{idLanchonete}")
+	public String salvarAtualizacao(@PathVariable Long idLanchonete, Produto produto) {
+		System.out.println("Id do produto: " + idLanchonete);
 		System.out.println(produto);
 		
-		Optional<Lanchonete> opt = lr.findById(idProduto);
+		Optional<Lanchonete> opt = lr.findById(idLanchonete);
 		if(opt.isEmpty()) {
 			return "redirect:/lanchonetes";
 		}
@@ -82,8 +83,9 @@ public class LanchonetesController {
 		
 		pr.save(produto);
 		
-		return "redirect:/lanchonetes/{idProduto}";
+		return "redirect:/lanchonetes/{idLanchonete}";
 	}
+	
 	
 	@GetMapping("/{id}/remover")
 	public String apagarProduto(@PathVariable Long id) {
@@ -104,5 +106,63 @@ public class LanchonetesController {
 		
 	}
 	
+	@GetMapping("/deletarProduto")
+	public String deletarProduto (String descricao) {
+		Produto produto = pr.findByDescricao(descricao);
+		pr.delete(produto);
+		
+		Lanchonete lanchonete = produto.getLanchonete();
+		Long idLong = lanchonete.getId();
+		String id = "" + idLong;
+		return "redirect:/" + id;
+	}
+	
+	@GetMapping ("/{id}/editarlista")
+	public ModelAndView editarLista(@PathVariable Long id) {
+		ModelAndView md = new ModelAndView();
+		Optional<Lanchonete> opt = lr.findById(id);
+		
+		if(opt.isEmpty()) {
+			md.setViewName("redirect:/lanchonetes");
+			return md;
+		}
+		
+		Lanchonete lanchonete = opt.get();
+		md.setViewName("lanchonetes/formLanchonete");
+		md.addObject("lanchonete", lanchonete);
+		
+		return md;
+		
+	}
+	
+	@GetMapping("/{idLanchonete}/produtos/{idProduto}/selecionar")
+	public ModelAndView selecionarProduto(@PathVariable Long idLanchonete, @PathVariable Long idProduto) {
+		ModelAndView md = new  ModelAndView();
+		
+		Optional<Lanchonete> optLanchonete = lr.findById(idLanchonete);
+		Optional<Produto> optProduto = pr.findById(idProduto);
+		
+		if(optProduto.isEmpty() || optLanchonete.isEmpty()) {
+			
+			md.setViewName("redirect:/lanchonetes");
+			return md ;
+		}
+		
+		Lanchonete lanchonete = optLanchonete.get();
+		Produto produto = optProduto.get();
+		
+		if(lanchonete.getId() != produto.getLanchonete().getId()) {
+			md.setViewName("redirect:/lanchonetes");
+			return md;
+		}
+		
+		md.setViewName("lanchonetes/detalhes");
+		md.addObject("produto", produto);
+		md.addObject("lanchonete", lanchonete);
+		md.addObject("produtos", pr.findByLanchonete(lanchonete));
+		return md;
+		
+		
+	}
 	
 }
