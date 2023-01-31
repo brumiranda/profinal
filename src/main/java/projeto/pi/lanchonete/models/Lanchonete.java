@@ -1,9 +1,16 @@
 package projeto.pi.lanchonete.models;
 
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Lanchonete {
@@ -11,10 +18,16 @@ public class Lanchonete {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank
 	private String produto;
+	@NotBlank
 	private String preco;
+	@NotBlank
 	private String quantidade;
-	private String data;
+	@NotNull 
+	@DateTimeFormat(pattern = "yyyy-MM-dd" )
+	private LocalDate data;
 	
 	
 	
@@ -50,11 +63,11 @@ public class Lanchonete {
 		this.quantidade = quantidade;
 	}
 	
-	public String getData() {
+	public LocalDate getData() {
 		return data;
 	}
 	
-	public void setData(String data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 

@@ -14,7 +14,9 @@
 
 	<div class="container">
 		<h1>Lista de Produtos</h1>
-
+		
+		
+		<p th:if="${mensagem}" th:text="${mensagem}"></p>
 		<table class="hinghlight">
 
 			<thead>
@@ -35,7 +37,7 @@
 					<td> <a th:href="@{/lanchonetes/{id}(id=${l.id})}"> <span th:text="${l.produto}">Tapioca</span></a></td>
 					<td th:text="${l.preco}">7.00</td>
 					<td th:text="${l.quantidade}">5</td>
-					<td th:text="${l.data}">25/01/23</td>
+					<td th:text="${#temporals.format(l.data )}">25/01/23</td>
 				 
 					<td><a th:href="@{/lanchonetes/{id}/editarlista(id=${l.id})}"><i class="material-icons">edit</i></a>	</td>
 					

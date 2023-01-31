@@ -13,23 +13,27 @@
 <div class="container">
 	<h1>Adicionar Produto</h1>
 
-	<form action="/lanchonetes" method="post">
+	<form action="/lanchonetes" method="post" th:object="${lanchonete}">
 	
 		<div>
-			<input type="hidden" name="id" th:value="${lanchonete.id}" readonly="readonly">
+			<input type="hidden" th:field="*{id}" readonly="readonly">
 		</div>
 
 		<div>
-			<label>Produto:</label> <input type="text" name="produto" th:value="${lanchonete.produto}">
+			<label>Produto:</label> <input type="text" th:field="*{produto}">
+			<p th:errors="*{produto}"></p>
 		</div>
 		<div>
-			<label>Preço:</label> <input type="text" name="preco" th:value="${lanchonete.preco}">
+			<label>Preço:</label> <input type="text" th:field="*{preco}">
+			<p th:errors="*{preco}"></p>
 		</div>
 		<div>
-			<label>Quantidade:</label> <input type="text" name="quantidade" th:value="${lanchonete.quantidade}">
+			<label>Quantidade:</label> <input type="text" th:field="*{quantidade}">
+			<p th:errors="*{quantidade}"></p>
 		</div>
 		<div>
-			<label>Data:</label> <input type="text" name="data" th:value="${lanchonete.data}">
+			<label>Data:</label> <input type="date" th:field="*{data}">
+			<p th:errors="*{data}"></p>
 		</div>
 
 
